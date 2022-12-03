@@ -23,6 +23,7 @@ app.use(express.urlencoded({extended: false})); //  Turn data into a JSON object
 
 // Routes
 app.use(require('./routes/index.routes'));
+app.use(require('./routes/notes.routes'));
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'))); // Found the public directory (the statics files e.g CSS HTML)

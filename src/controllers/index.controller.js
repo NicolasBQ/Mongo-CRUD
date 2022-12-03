@@ -1,6 +1,6 @@
 const indexCtrl = {};
 
-indexCtrl.rederIndex = (req, res) => {
+indexCtrl.renderIndex = (req, res) => {
     res.render('index');
 }
 
