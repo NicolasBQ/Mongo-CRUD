@@ -1,9 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
 
 // Initialization
 const app = express();
+require('./config/passport');
 
 // Settings
 app.set('port', process.env.PORT || 3000); // Listen to the right PORT 
@@ -18,6 +22,14 @@ app.set('view engine', '.hbs')
 
 // Middlewares
 app.use(express.urlencoded({extended: false})); //  Turn data into a JSON object
+app.use(session( {
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // Global Variables
 
