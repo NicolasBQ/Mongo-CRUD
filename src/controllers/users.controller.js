@@ -30,14 +30,10 @@ usersCtrl.signup = async (req, res) => {
         if(emailUser) {
             res.send('email repeated');
         } else {
-            try {
-                const newUser = new User({name, email, password});
-                newUser.password = newUser.encryptPassword(password);
-                await newUser.save();
-                res.redirect('/users/signin');
-            } catch(error) {
-                console.log(error);
-            }
+            const newUser = new User({name, email, password});
+            newUser.password = await newUser.encryptPassword(password);
+            await newUser.save();
+            res.redirect('/users/signin');
         }
     }
 
