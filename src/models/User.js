@@ -3,19 +3,30 @@ const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
     name: {type: String, required: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true}
+    email: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
 }, {
     timestamps: true,
 })
 
+
+UserSchema.methods.encryptPassword = async function(password) {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        return await bcrypt.hash(password, salt);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// UserSchema.methods = async function(password) {
+//     return await bcrypt.compare(password, this.password);
+// }
+
+// UserSchema.methods = function() {
+//     console.log('GUAU');
+// }
+
 module.exports = model('User', UserSchema);
 
-UserSchema.method.encryptPassword = async password => { // Schema method to encrypt Password
-    const salt = await bcrypt.genSalt(10);
-    return await bcrypt.hash(password, salt);
-}
 
-UserSchema.method.matchPassword = async function(password) { // Schema method to compare the password entered by the user and the password save in the data base (both passwords are going to be encrypted cause the encryptPassword method)
-    return await bcrypt.compare(password, this.password);
-}

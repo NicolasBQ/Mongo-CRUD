@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // Settings
-app.set('port', process.env.PORT || 4000); // Listen to the right PORT 
+app.set('port', process.env.PORT || 3000); // Listen to the right PORT 
 app.set('views', path.join(__dirname, 'views')); // Found the views directory
 app.engine('.hbs', exphbs.engine({  
     defaultLayout: 'main',
