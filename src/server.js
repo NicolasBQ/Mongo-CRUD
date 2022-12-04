@@ -32,6 +32,11 @@ app.use(passport.session());
 app.use(flash());
 
 // Global Variables
+app.use((req, res, next) => {
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
+})
 
 // Routes
 app.use(require('./routes/index.routes'));
